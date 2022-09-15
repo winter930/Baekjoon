@@ -83,6 +83,5 @@ int main() {
 	}
 
 	cout << clean(r, c, d);
-
 	return 0;
 }
