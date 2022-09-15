@@ -123,6 +123,5 @@ int main() {
 	s.count = 0;
 
 	cout << BFS(s);
-
 	return 0;
 }
