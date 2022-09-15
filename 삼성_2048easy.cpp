@@ -199,6 +199,5 @@ int main() {
 	}
 
 	cout << find_max(init);
-
 	return 0;
 }
