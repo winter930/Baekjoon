@@ -17,7 +17,7 @@ enum State {
 	stop
 };
 
-// 0: 没家傈: 1  寒 2: 没家饶
+// 0: 脙禄录脪脌眉: 1  潞庐 2: 脙禄录脪脠脛
 int map[50][50];
 
 int clean(int sr, int sc, int sd) {
