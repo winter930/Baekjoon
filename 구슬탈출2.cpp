@@ -24,7 +24,6 @@ int M;
 char board[10][10];
 
 int BFS(point start) {
-	//Ã³À½ À§Ä¡
 	ballpoint.push(start);
 
 	visited[start.ry][start.rx][start.by][start.bx] = 1;
@@ -88,13 +87,13 @@ int BFS(point start) {
 				continue;
 			}
 
-			//Ä«¿îÆ®++
+			//ì¹´ìš´íŠ¸++
 			c += 1;
 			if (c >= 10) {
 				continue;
 			}
 
-			//°æ·ÎÇ¥½Ã, push
+			//ê²½ë¡œí‘œì‹œ, push
 			visited[nry][nrx][nby][nbx] = 1;
 			ballpoint.push({ nrx,nry,nbx,nby,c });
 		}
