@@ -24,13 +24,13 @@ int find_max(board s) {
 			int sline, eline;
 			switch (i)
 			{
-			case 0://¿ì·Î ¿Å±â±â
+			case 0://ìš°ë¡œ ì˜®ê¸°ê¸°
 				for (int n = 0; n < N; n++) {
 					int pos = N - 1;
 					int search = N - 2;
 					while (search != -1) {
-						if (temp.block[n][search] > 0) {//2ÀÌ»ó ¹ß°ß
-							if (temp.block[n][pos] == temp.block[n][search]) {//¼ö°¡ °°Àº °æ¿ì
+						if (temp.block[n][search] > 0) {//2ì´ìƒ ë°œê²¬
+							if (temp.block[n][pos] == temp.block[n][search]) {//ìˆ˜ê°€ ê°™ì€ ê²½ìš°
 								temp.block[n][pos] *= 2;
 								temp.block[n][search] = 0;
 								if (temp.max_num < temp.block[n][pos]) {
@@ -38,14 +38,14 @@ int find_max(board s) {
 								}
 								pos--;
 							}
-							else if (temp.block[n][pos] == 0) {//¿Å±â´Â °æ¿ì
+							else if (temp.block[n][pos] == 0) {//ì˜®ê¸°ëŠ” ê²½ìš°
 								temp.block[n][pos] = temp.block[n][search];
 								temp.block[n][search] = 0;
 								if (temp.max_num < temp.block[n][pos]) {
 									temp.max_num = temp.block[n][pos];
 								}
 							}
-							else {//¼ö°¡ ´Ù¸¥ °æ¿ì
+							else {//ìˆ˜ê°€ ë‹¤ë¥¸ ê²½ìš°
 								pos--;
 								if (pos != search) {
 									temp.block[n][pos] = temp.block[n][search];
@@ -60,13 +60,13 @@ int find_max(board s) {
 					}
 				}
 				break;
-			case 1://¾Æ·¡·Î ¿Å±â±â
+			case 1://ì•„ë˜ë¡œ ì˜®ê¸°ê¸°
 				for (int n = 0; n < N; n++) {
 					int pos = N - 1;
 					int search = N - 2;
 					while (search != -1) {
-						if (temp.block[search][n] > 0) {//2ÀÌ»ó ¹ß°ß
-							if (temp.block[pos][n] == temp.block[search][n]) {//¼ö°¡ °°Àº °æ¿ì
+						if (temp.block[search][n] > 0) {//2ì´ìƒ ë°œê²¬
+							if (temp.block[pos][n] == temp.block[search][n]) {//ìˆ˜ê°€ ê°™ì€ ê²½ìš°
 								temp.block[pos][n] *= 2;
 								temp.block[search][n] = 0;
 								if (temp.max_num < temp.block[pos][n]) {
@@ -74,14 +74,14 @@ int find_max(board s) {
 								}
 								pos--;
 							}
-							else if (temp.block[pos][n] == 0) {//¿Å±â´Â °æ¿ì
+							else if (temp.block[pos][n] == 0) {//ì˜®ê¸°ëŠ” ê²½ìš°
 								temp.block[pos][n] = temp.block[search][n];
 								temp.block[search][n] = 0;
 								if (temp.max_num < temp.block[pos][n]) {
 									temp.max_num = temp.block[pos][n];
 								}
 							}
-							else {//¼ö°¡ ´Ù¸¥ °æ¿ì
+							else {//ìˆ˜ê°€ ë‹¤ë¥¸ ê²½ìš°
 								pos--;
 								if (pos != search) {
 									temp.block[pos][n] = temp.block[search][n];
@@ -96,13 +96,13 @@ int find_max(board s) {
 					}
 				}
 				break;
-			case 2://ÁÂ·Î ¿Å±â±â
+			case 2://ì¢Œë¡œ ì˜®ê¸°ê¸°
 				for (int n = 0; n < N; n++) {
 					int pos = 0;
 					int search = 1;
 					while (search != N) {
-						if (temp.block[n][search] > 0) {//2ÀÌ»ó ¹ß°ß
-							if (temp.block[n][pos] == temp.block[n][search]) {//¼ö°¡ °°Àº °æ¿ì
+						if (temp.block[n][search] > 0) {//2ì´ìƒ ë°œê²¬
+							if (temp.block[n][pos] == temp.block[n][search]) {//ìˆ˜ê°€ ê°™ì€ ê²½ìš°
 								temp.block[n][pos] *= 2;
 								temp.block[n][search] = 0;
 								if (temp.max_num < temp.block[n][pos]) {
@@ -110,14 +110,14 @@ int find_max(board s) {
 								}
 								pos++;
 							}
-							else if (temp.block[n][pos] == 0) {//¿Å±â´Â °æ¿ì
+							else if (temp.block[n][pos] == 0) {//ì˜®ê¸°ëŠ” ê²½ìš°
 								temp.block[n][pos] = temp.block[n][search];
 								temp.block[n][search] = 0;
 								if (temp.max_num < temp.block[n][pos]) {
 									temp.max_num = temp.block[n][pos];
 								}
 							}
-							else {//¼ö°¡ ´Ù¸¥ °æ¿ì
+							else {//ìˆ˜ê°€ ë‹¤ë¥¸ ê²½ìš°
 								pos++;
 								if (pos != search) {
 									temp.block[n][pos] = temp.block[n][search];
@@ -132,13 +132,13 @@ int find_max(board s) {
 					}
 				}
 				break;
-			case 3://À§·Î ¿Å±â±â
+			case 3://ìœ„ë¡œ ì˜®ê¸°ê¸°
 				for (int n = 0; n < N; n++) {
 					int pos = 0;
 					int search = 1;
 					while (search != N) {
-						if (temp.block[search][n] > 0) {//2ÀÌ»ó ¹ß°ß
-							if (temp.block[pos][n] == temp.block[search][n]) {//¼ö°¡ °°Àº °æ¿ì
+						if (temp.block[search][n] > 0) {//2ì´ìƒ ë°œê²¬
+							if (temp.block[pos][n] == temp.block[search][n]) {//ìˆ˜ê°€ ê°™ì€ ê²½ìš°
 								temp.block[pos][n] *= 2;
 								temp.block[search][n] = 0;
 								if (temp.max_num < temp.block[pos][n]) {
@@ -146,14 +146,14 @@ int find_max(board s) {
 								}
 								pos++;
 							}
-							else if (temp.block[pos][n] == 0) {//¿Å±â´Â °æ¿ì
+							else if (temp.block[pos][n] == 0) {//ì˜®ê¸°ëŠ” ê²½ìš°
 								temp.block[pos][n] = temp.block[search][n];
 								temp.block[search][n] = 0;
 								if (temp.max_num < temp.block[pos][n]) {
 									temp.max_num = temp.block[pos][n];
 								}
 							}
-							else {//¼ö°¡ ´Ù¸¥ °æ¿ì
+							else {//ìˆ˜ê°€ ë‹¤ë¥¸ ê²½ìš°
 								pos++;
 								if (pos != search) {
 									temp.block[pos][n] = temp.block[search][n];
