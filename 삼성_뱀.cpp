@@ -35,7 +35,7 @@ int snakegame() {
 
 	while (1) {
 		if (!mt.empty()) {
-			if (playtime == mt.front().t) {//-----mt°¡ emptyÀÎ °æ¿ì ¾î¶»°Ô µÇ³ë
+			if (playtime == mt.front().t) {//-----mtê°€ emptyì¸ ê²½ìš° ì–´ë–»ê²Œ ë˜ë…¸
 				switch (mt.front().dir)
 				{
 				case 'L':
@@ -53,16 +53,16 @@ int snakegame() {
 		temp.r += dy[d];
 		temp.c += dx[d];
 		playtime++;
-		if (temp.r > N || temp.r <1 || temp.c > N || temp.c < 1) {//º®¿¡ ´êÀº °æ¿ì
+		if (temp.r > N || temp.r <1 || temp.c > N || temp.c < 1) {//ë²½ì— ë‹¿ì€ ê²½ìš°
 			break;
 		}
 
-		if (map[temp.r][temp.c] == 2) {//¸ö¿¡ ´êÀÎ °æ¿ì
+		if (map[temp.r][temp.c] == 2) {//ëª¸ì— ë‹¿ì¸ ê²½ìš°
 			break;
 		}
 
 		
-		if (map[temp.r][temp.c] != 1) {//»ç°ú°¡ ¾ø´Â °æ¿ì
+		if (map[temp.r][temp.c] != 1) {//ì‚¬ê³¼ê°€ ì—†ëŠ” ê²½ìš°
 			map[sb.front().r][sb.front().c] = 0;
 			sb.pop();
 		}
@@ -88,6 +88,5 @@ int main() {
 	}
 
 	cout << snakegame();
-
 	return 0;
 }
