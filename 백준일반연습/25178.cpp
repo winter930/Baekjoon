@@ -31,7 +31,7 @@ int main()
 
 	for (int i = 1; i < N - 1; i++)
 	{
-		//for (char c : a) if (string("aeiou").find(c) == -1) a2.push_back(c); °¡´É ¹®ÀÚ¿­¼Ó ¹®ÀÚ ¹Ýº¹!!
+		//for (char c : a) if (string("aeiou").find(c) == -1) a2.push_back(c); Â°Â¡Â´Ã‰ Â¹Â®Ã€ÃšÂ¿Â­Â¼Ã“ Â¹Â®Ã€Ãš Â¹ÃÂºÂ¹!!
 		if (a[i] != 'a' && a[i] != 'e' && a[i] != 'i' && a[i] != 'o' && a[i] != 'u')
 		{
 			a2.append(1, a[i]);//or a2.push_back(a[i]);
