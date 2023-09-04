@@ -7,15 +7,15 @@ int N, M;
 int map[500][500];
 int maxvalue = 0;
 
-int tetromino1() {//¸·´ë¸ð¾ç
+int tetromino1() {//ë§‰ëŒ€ëª¨ì–‘
 	int s = 0;
-	for (int i = 0; i <= N - 4; i++) {//¼¼·Î¸ð¾ç
+	for (int i = 0; i <= N - 4; i++) {//ì„¸ë¡œëª¨ì–‘
 		for (int j = 0; j < M; j++) {
 			s = max(s, map[i][j] + map[i + 1][j] + map[i + 2][j] + map[i + 3][j]);
 		}
 	}
 
-	for (int i = 0; i < N; i++) {//°¡·Î¸ð¾ç
+	for (int i = 0; i < N; i++) {//ê°€ë¡œëª¨ì–‘
 		for (int j = 0; j <= M-4; j++) {
 			s = max(s, map[i][j] + map[i][j + 1] + map[i][j + 2] + map[i][j + 3]);
 		}
@@ -23,7 +23,7 @@ int tetromino1() {//¸·´ë¸ð¾ç
 	return s;
 }
 
-int tetromino2() {//»ç°¢Çü
+int tetromino2() {//ì‚¬ê°í˜•
 	int s = 0;
 	for (int i = 0; i <= N-2; i++) {
 		for (int j = 0; j <= M - 2; j++) {
@@ -33,9 +33,9 @@ int tetromino2() {//»ç°¢Çü
 	return s;
 }
 
-int tetromino3() {//¤¡¸ð¾ç
+int tetromino3() {//ã„±ëª¨ì–‘
 	int s = 0;
-	for (int i = 0; i <= N -3; i++) {//¼¼·Î¸ð¾ç
+	for (int i = 0; i <= N -3; i++) {//ì„¸ë¡œëª¨ì–‘
 		for (int j = 0; j <= M - 2; j++) {
 			s = max(s, map[i][j] + map[i + 1][j] + map[i + 2][j] + map[i][j + 1]);
 			s = max(s, map[i][j] + map[i + 1][j] + map[i + 2][j] + map[i + 2][j + 1]);
@@ -56,7 +56,7 @@ int tetromino3() {//¤¡¸ð¾ç
 	return s;
 }
 
-int tetromino4() {//¤¤¤¡¸ð¾ç
+int tetromino4() {//ã„´ã„±ëª¨ì–‘
 	int s = 0;
 	for (int i = 0; i <= N - 3; i++) {
 		for (int j = 0; j <= M - 2; j++) {
@@ -74,7 +74,7 @@ int tetromino4() {//¤¤¤¡¸ð¾ç
 	return s;
 }
 
-int tetromino5() {//¤Ç¸ð¾ç
+int tetromino5() {//ã…—ëª¨ì–‘
 	int s = 0;
 	for (int i = 0; i <= N - 3; i++) {
 		for (int j = 0; j <= M - 2; j++) {
