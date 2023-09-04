@@ -13,7 +13,7 @@ queue<pair<int, int>> cmd;
 queue<pair<int, int>> cloud;
 queue<pair<int, int>> water;
 
-// 0  1¡¬   3ªÛ   5øÏ   7«œ
+// 0  1Ï¢å   3ÏÉÅ   5Ïö∞   7Ìïò
 int dx[9] = {0, -1, -1 , 0, 1, 1, 1, 0, -1};
 int dy[9] = {0, 0, -1, -1, -1, 0, 1, 1, 1};
 
@@ -37,7 +37,7 @@ int main() {
 	}
 
 	for (; !cmd.empty(); cmd.pop()) {
-		//∫Ò≥ª∏Æ±‚
+		//ÎπÑÎÇ¥Î¶¨Í∏∞
 		for (; !cloud.empty(); cloud.pop()) {
 			int r = cloud.front().first + dy[cmd.front().first] * cmd.front().second;
 			int c = cloud.front().second + dx[cmd.front().first] * cmd.front().second;
@@ -61,7 +61,7 @@ int main() {
 			rain[r][c] = 1;
 		}
 
-		//π∞∫πªÁ
+		//Î¨ºÎ≥µÏÇ¨
 		for (; !water.empty(); water.pop()) {
 			for (int i = 1; i <= 4; i++) {
 				int r = water.front().first + dy[2 * i];
@@ -75,7 +75,7 @@ int main() {
 			}
 		}
 
-		//±∏∏ß ª˝º∫
+		//Íµ¨Î¶Ñ ÏÉùÏÑ±
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= N; j++) {
 				if (map[i][j] >= 2 && rain[i][j] != 1) {
