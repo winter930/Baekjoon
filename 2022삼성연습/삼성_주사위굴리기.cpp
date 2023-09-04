@@ -37,28 +37,28 @@ int main() {
 			continue;
 		}
 		switch (mk.front()) {
-		case 1://µø
+		case 1://¬µ¬ø
 			temp = dice[1];
 			dice[1] = dice[4];
 			dice[4] = dice[6];
 			dice[6] = dice[3];
 			dice[3] = temp;
 			break;
-		case 2://º≠
+		case 2://¬º¬≠
 			temp = dice[1];
 			dice[1] = dice[3];
 			dice[3] = dice[6];
 			dice[6] = dice[4];
 			dice[4] = temp;
 			break;
-		case 3://∫œ
+		case 3://¬∫√è
 			temp = dice[1];
 			dice[1] = dice[5];
 			dice[5] = dice[6];
 			dice[6] = dice[2];
 			dice[2] = temp;
 			break;
-		case 4://≥≤
+		case 4://¬≥¬≤
 			temp = dice[1];
 			dice[1] = dice[2];
 			dice[2] = dice[6];
