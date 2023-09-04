@@ -16,7 +16,7 @@ int tx[] = {-1, -1, 1, 1};
 void tornado(int r, int c, int d) {
 	int dir = d;
 	int a = 0;
-	//´ë°¢¼±
+	//Â´Ã«Â°Â¢Â¼Â±
 	for (int i = 0; i < 4; i++) {
 		if (i < 2) {
 			if (r + ty[(dir + i) % 4] >= 1 && r + ty[(dir + i) % 4] <= N && c + tx[(dir + i) % 4] >= 1 && c + tx[(dir + i) % 4] <= N) {
@@ -38,7 +38,7 @@ void tornado(int r, int c, int d) {
 		}
 	}
 
-	//¿ÞÂÊ
+	//Â¿ÃžÃ‚ÃŠ
 	if (r + dy[(dir + 1) % 4] >= 1 && r + dy[(dir + 1) % 4] <= N && c + dx[(dir + 1) % 4] >= 1 && c + dx[(dir + 1) % 4] <= N) {
 		A[r + dy[(dir + 1) % 4]][c + dx[(dir + 1) % 4]] += A[r][c] * 7 / 100;
 	}
@@ -55,7 +55,7 @@ void tornado(int r, int c, int d) {
 	}
 	a += A[r][c] / 50;
 
-	//¿À¸¥ÂÊ
+	//Â¿Ã€Â¸Â¥Ã‚ÃŠ
 	if (r + dy[(dir + 3) % 4] >= 1 && r + dy[(dir + 3) % 4] <= N && c + dx[(dir + 3) % 4] >= 1 && c + dx[(dir + 3) % 4] <= N) {
 		A[r + dy[(dir + 3) % 4]][c + dx[(dir + 3) % 4]] += A[r][c] * 7 / 100;
 	}
@@ -72,7 +72,7 @@ void tornado(int r, int c, int d) {
 	}
 	a += A[r][c] / 50;
 
-	//Á¤¸é
+	//ÃÂ¤Â¸Ã©
 	if (r + dy[dir] * 2 >= 1 && r + dy[dir] * 2 <= N && c + dx[dir] * 2 >= 1 && c + dx[dir] * 2 <= N) {
 		A[r + dy[dir] * 2][c + dx[dir] * 2] += A[r][c] / 20;
 	}
