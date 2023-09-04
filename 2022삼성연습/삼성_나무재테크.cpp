@@ -32,13 +32,13 @@ int main() {
 	}
 
 	for (int i = 0; i < K; i++) {
-		//º½, ¿©¸§
-		for (int j = 0; j < tp.size(); ) {//³ª¹«°¡ ÀÖ´Â Ä­ ¸¸Å­ ¹İº¹
+		//ë´„, ì—¬ë¦„
+		for (int j = 0; j < tp.size(); ) {//ë‚˜ë¬´ê°€ ìˆëŠ” ì¹¸ ë§Œí¼ ë°˜ë³µ
 			int cx = tp.at(j).first;
 			int cy = tp.at(j).second;
 
-			int da = 0;//Á×Àº ³ª¹« ¾çºĞ
-			for (int h = map2[cx][cy].size() - 1; h >= 0 ; h--) {//Ä­ÀÇ ³ª¹«°³¼ö¸¸Å­ ¹İº¹
+			int da = 0;//ì£½ì€ ë‚˜ë¬´ ì–‘ë¶„
+			for (int h = map2[cx][cy].size() - 1; h >= 0 ; h--) {//ì¹¸ì˜ ë‚˜ë¬´ê°œìˆ˜ë§Œí¼ ë°˜ë³µ
 				if (map1[cx][cy] >= map2[cx][cy].at(h)) {
 					map1[cx][cy] -= map2[cx][cy].at(h);
 					map2[cx][cy].at(h)++;
@@ -68,8 +68,8 @@ int main() {
 			int cx = tp.at(j).first;
 			int cy = tp.at(j).second;
 
-			//°¡À»
-			for (int h = map2[cx][cy].size() - 1; h >= 0; h--) {//Ä­ÀÇ ³ª¹«°³¼ö¸¸Å­ ¹İº¹
+			//ê°€ì„
+			for (int h = map2[cx][cy].size() - 1; h >= 0; h--) {//ì¹¸ì˜ ë‚˜ë¬´ê°œìˆ˜ë§Œí¼ ë°˜ë³µ
 				if (map2[cx][cy].at(h) % 5 == 0) {
 					for (int g = 0; g < 8; g++) {
 						if (cx + dx[g] <= N && cx + dx[g] > 0 && cy + dy[g] <= N && cy + dy[g] > 0) {
@@ -85,7 +85,7 @@ int main() {
 			}
 		}
 
-		//°Ü¿ï
+		//ê²¨ìš¸
 		for (int j = 1; j <= N; j++) {
 			for (int h = 1; h <= N; h++) {
 				map1[j][h] += A[j][h];
