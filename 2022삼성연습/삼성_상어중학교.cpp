@@ -7,15 +7,15 @@ using namespace std;
 
 int N, M;
 int map[20][20];
-int visited[20][20] = {};//0: ºñ¹æ¹®   0:¹«Áö°³   -1: ¹æ¹®   -1: °ËÀº ºí·Ï
+int visited[20][20] = {};//0: ë¹„ë°©ë¬¸   0:ë¬´ì§€ê°œ   -1: ë°©ë¬¸   -1: ê²€ì€ ë¸”ë¡
 
 int dx[] = { 1, 0, -1, 0 };
 int dy[] = { 0, 1, 0, -1 };
 
 typedef struct shape {
-	int minr;//±âÁØºí·Ï Çà
-	int minc;//±âÁØºí·Ï ¿­
-	int rbnum;//¹«Áö°³
+	int minr;//ê¸°ì¤€ë¸”ë¡ í–‰
+	int minc;//ê¸°ì¤€ë¸”ë¡ ì—´
+	int rbnum;//ë¬´ì§€ê°œ
 	queue<pair<int, int>> block;
 };
 
@@ -70,22 +70,22 @@ void rotate90() {
 }
 
 shape compare_shape(shape a, shape b) {
-	if (a.block.size() < b.block.size()) {//Å©±â
+	if (a.block.size() < b.block.size()) {//í¬ê¸°
 		return b;
 	}
 
-	if (a.block.size() == b.block.size()) {//Å©±â
-		if (a.rbnum < b.rbnum) {//¹«Áö°³ºí·Ï¼ö
+	if (a.block.size() == b.block.size()) {//í¬ê¸°
+		if (a.rbnum < b.rbnum) {//ë¬´ì§€ê°œë¸”ë¡ìˆ˜
 			return b;
 		}
 
-		if (a.rbnum == b.rbnum) {//¹«Áö°³ºí·Ï¼ö
-			if (a.minr < b.minr) {//Çà
+		if (a.rbnum == b.rbnum) {//ë¬´ì§€ê°œë¸”ë¡ìˆ˜
+			if (a.minr < b.minr) {//í–‰
 				return b;
 			}
 
-			if (a.minr == b.minr) {//Çà
-				if (a.minc < b.minc) {//¿­
+			if (a.minr == b.minr) {//í–‰
+				if (a.minc < b.minc) {//ì—´
 					return b;
 				}
 			}
@@ -101,16 +101,16 @@ shape BFS(int color, shape s) {
 		for (int i = 0; i < 4; i++) {
 			int r = search_q.front().first + dy[i];
 			int c = search_q.front().second + dx[i];
-			if (r > N -1 || r < 0 || c > N - 1 || c < 0) {//¹ş¾î³­ ¹üÀ§
+			if (r > N -1 || r < 0 || c > N - 1 || c < 0) {//ë²—ì–´ë‚œ ë²”ìœ„
 				continue;
 			}
 
-			if (visited[r][c] == -1 || map[r][c] == -1 || map[r][c] == 6) {//¹æ¹®ÇÑÀû ÀÖÀ» ¶§, °ËÀº ºí·Ï, ºó°ø°£
+			if (visited[r][c] == -1 || map[r][c] == -1 || map[r][c] == 6) {//ë°©ë¬¸í•œì  ìˆì„ ë•Œ, ê²€ì€ ë¸”ë¡, ë¹ˆê³µê°„
 				continue;
 			}
 
 			if (map[r][c] == color || map[r][c] == 0) {
-				if (map[r][c] == 0) {//¹«Áö°³
+				if (map[r][c] == 0) {//ë¬´ì§€ê°œ
 					rainbow.push({ r, c });
 					temp.rbnum++;
 				}
