@@ -38,7 +38,7 @@ int main()
 			break;
 		}
 
-		//max(maxvalue, b[i] - a[i]) ����ص� �ȴ�.
+		//max(maxvalue, b[i] - a[i]) »ç¿ëÇØµµ µÈ´Ù.
 		if (a[i] < b[i] && maxvalue < b[i] - a[i])
 		{
 			maxvalue = b[i] - a[i];
