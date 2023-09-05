@@ -1,0 +1,150 @@
+//백준 19236 청소년 상어
+
+#include<iostream>
+#include<vector>
+#include<map>
+
+using namespace std;
+
+vector<vector<int>> board(4, vector<int>(4));
+
+int dr[8] = { -1, -1, -1, 0, 1, 1, 1, 0 };
+int dc[8] = { 1, 0, -1, -1, -1, 0, 1, 1 };
+
+struct fish {
+	int r;
+	int c;
+	int d;
+};
+vector<fish> f(17);
+
+void pb() {
+	cout << "----------print board--------------\n";
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cout << board[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void pf() {
+	cout << "----------print fish--------------\n";
+	for (int i = 0; i <= 16; i++) {
+		cout << i << " : " << f[i].d << "\t";
+		if (i % 4 == 0) {
+			cout << endl;
+		}
+	}
+	cout << endl;
+}
+
+bool out_range(int nr, int nc) {
+	return nr < 0 || nr > 3 || nc < 0 || nc > 3;
+}
+
+void fish_move() {
+	for (int i = 1; i <= 16; i++) {
+		if (f[i].d == -1) {
+			continue;
+		}
+
+		for (int d = 0; d < 8; d++) {
+			int nr = f[i].r + dr[(f[i].d + d) % 8];
+			int nc = f[i].c + dc[(f[i].d + d) % 8];
+
+			if (out_range(nr, nc)
+				|| (nr == f[0].r && nc == f[0].c)) {
+				continue;
+			}
+			
+			if (board[nr][nc] > 0) {
+				f[board[nr][nc]].r = f[i].r;
+				f[board[nr][nc]].c = f[i].c;
+
+			}
+			board[f[i].r][f[i].c] = board[nr][nc];
+			//f[i] = { nr, nc, (f[i].d + d) % 8 };
+			f[i].r = nr;
+			f[i].c = nc;
+			f[i].d = (f[i].d + d) % 8;
+			board[nr][nc] = i;
+			
+			break;
+		}
+	}
+}
+
+int max_fishnum = 0;
+void shark_move(int fishnum) {
+	int nr = f[0].r + dr[f[0].d];
+	int nc = f[0].c + dc[f[0].d];
+	
+	bool flag = true;
+	while (!out_range(nr, nc)) {
+		if (board[nr][nc] == 0) {
+			nr += dr[f[0].d];
+			nc += dc[f[0].d];
+			continue;
+		}
+
+		if (flag) {
+			flag = false;
+		}
+		vector<vector<int>> cpy_board = board;
+		vector<fish> cpy_f = f;
+
+		int fn = board[nr][nc];
+		f[0].r = nr;
+		f[0].c = nc;
+		f[0].d = f[board[nr][nc]].d;
+		f[board[nr][nc]].d = -1;
+		board[nr][nc] = 0;
+		
+
+		fish_move();
+		shark_move(fishnum + fn);
+		board = cpy_board;
+		f = cpy_f;
+
+		nr += dr[f[0].d];
+		nc += dc[f[0].d];
+	}
+
+	if (flag && max_fishnum < fishnum) {
+		max_fishnum = fishnum;
+	}
+}
+
+int main() {
+	int a, b;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cin >> a >> b;
+			if (b == 8) {
+				b = 0;
+			}
+
+			if (i == 0 && j == 0) {
+				f[0].r = i;
+				f[0].c = j;
+				f[0].d = b;
+				f[a].d = -1;
+				max_fishnum = a;
+				continue;
+			}
+
+			f[a].r = i;
+			f[a].c = j;
+			f[a].d = b;
+			board[i][j] = a;
+		}
+	}
+
+	fish_move();
+	shark_move(max_fishnum);
+
+	cout << max_fishnum;
+	return 0;
+}
