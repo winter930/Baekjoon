@@ -1,0 +1,176 @@
+//백준 21611 마법사 상어와 블리자드
+
+#include<iostream>
+#include<vector>
+#include<deque>
+
+using namespace std;
+
+int N, M;
+vector<vector<int>> board;
+deque<pair<int, int>> dq;
+
+void pb() {
+	cout << "--------- print board ------------\n";
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << board[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void pdq() {
+	cout << "--------- print dq ------------\n";
+	for (int i = 0; i < dq.size(); i++) {
+		cout << "(" << dq[i].first << ", " << dq[i].second << ")\t";
+		if (i % 5 == 4) {
+			cout << endl;
+		}
+	}
+	cout << endl;
+}
+
+void blizzard(int d, int s) {
+	//상1 하2 좌3 우4
+	int dr[5] = { 0, -1, 1, 0, 0 };
+	int dc[5] = { 0, 0, 0, -1, 1 };
+	int r = N / 2, c = N / 2;
+	for (int i = 0; i < s; i++) {
+		r += dr[d], c += dc[d];
+		board[r][c] = 0;
+	}
+}
+
+void dq_insert() {
+	//좌하우상
+	int dr[4] = { 0,1,0,-1 };
+	int dc[4] = { -1,0,1,0 };
+
+	int distance = 1, r = N / 2, c = N / 2, d = 0;
+	for (int i = 0; i < N * 2 - 1; i++) {
+		for (int j = 0; j < distance; j++) {
+			r += dr[d], c += dc[d];
+			
+			if (board[r][c] == 0) {
+				continue;
+			}
+
+			if (dq.empty()) {
+				dq.push_back({ board[r][c], 1 });
+				board[r][c] = 0;
+				continue;
+			}
+
+			if (dq.back().first == board[r][c]) {
+				dq.back().second++;
+			}
+			else {
+				dq.push_back({ board[r][c], 1 });
+			}
+			board[r][c] = 0;
+		}
+		d = (d + 1) % 4;
+		if (i % 2 == 1 && distance < N - 1) {
+			distance++;
+		}
+	}
+}
+
+int boom() {
+	int score = 0;
+	bool flag = true;
+	while (flag && !dq.empty()) {
+		flag = false;
+		//boom
+		for (int i = 0; i < dq.size();) {
+			if (dq[i].second >= 4) {
+				if (!flag) {
+					flag = true;
+				}
+				score += dq[i].first * dq[i].second;
+				dq.erase(dq.begin() + i);
+			}
+			else {
+				i++;
+			}
+		}
+		if (!flag) {
+			break;
+		}
+
+		//combine
+		for (int i = 1; i < dq.size();) {
+			if (dq[i-1].first == dq[i].first) {
+				dq[i - 1].second += dq[i].second;
+				dq.erase(dq.begin() + i);
+			}
+			else {
+				i++;
+			}
+		}
+	}
+
+	return score;
+}
+
+void marble_change() {
+	//좌하우상
+	int dr[4] = { 0,1,0,-1 };
+	int dc[4] = { -1,0,1,0 };
+
+	int distance = 1, r = N / 2, c = N / 2, d = 0;
+	bool flag = true;
+	for (int i = 0; i < N * 2 - 1; i++) {
+		for (int j = 0; j < distance; j++) {
+			r += dr[d], c += dc[d];
+			
+			if (dq.empty()) {
+				return;
+			}
+			
+			if (flag) {
+				board[r][c] = dq.front().second;
+			}
+			else {
+				board[r][c] = dq.front().first;
+				dq.pop_front();
+			}
+			flag ^= 1;
+		}
+		d = (d + 1) % 4;
+		if (i % 2 == 1 && distance < N - 1) {
+			distance++;
+		}
+	}
+	dq.clear();
+}
+
+int main() {
+	cin >> N >> M;
+	board = vector<vector<int>>(N, vector<int>(N));
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> board[i][j];
+		}
+	}
+
+	int ans = 0;
+	int d, s;
+	for (int i = 0; i < M; i++) {
+		cin >> d >> s;
+		blizzard(d, s);
+		//pb();
+		dq_insert();
+		//pb();
+		//pdq();
+		ans += boom();
+		//pdq();
+		marble_change();
+		//pb();
+	}
+
+	cout << ans;
+	return 0;
+}
