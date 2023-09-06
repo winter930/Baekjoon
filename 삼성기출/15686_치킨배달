@@ -1,0 +1,153 @@
+//백준 15686 치킨배달
+//시간복잡도 BFS > DFS(거리 직접 비교)
+
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<queue>
+
+using namespace std;
+
+int N, M;
+vector<vector<int>> board;
+int house_num = 0;
+
+struct point {
+	int r;
+	int c;
+};
+vector<point> chicken;
+vector<bool> pre;
+
+int dr[4] = { 0, 1, 0, -1 };
+int dc[4] = { 1, 0, -1, 0 };
+
+bool out_range(int r, int c) {
+	return r < 0 || r >= N || c < 0 || c >= N;
+}
+
+int min_value = 1000000;
+void BFS() {
+	int n = 0;
+	int d = 0;
+	vector<vector<int>> b(N, vector<int>(N, -1));
+	queue<point> q;
+	for (int i = 0; i < pre.size(); i++) {
+		if (pre[i]) {
+			q.push({ chicken[i] });
+			b[chicken[i].r][chicken[i].c] = 0;
+		}
+	}
+
+	while (!q.empty()) {
+		int r = q.front().r;
+		int c = q.front().c;
+		q.pop();
+		for (int i = 0; i < 4; i++) {
+			int nr = r + dr[i];
+			int nc = c + dc[i];
+			if (out_range(nr, nc)
+				|| b[nr][nc] >= 0) {
+				continue;
+			}
+
+			if (board[nr][nc] == 1) {
+				n++;
+				d += b[r][c] + 1;
+				if (d > min_value) {
+					return;
+				}
+
+				if (n == house_num) {
+					min_value = d;
+					return;
+				}
+			}
+
+			b[nr][nc] = b[r][c] + 1;
+			q.push({ nr,nc });
+		}
+	}
+}
+
+#include<cmath>
+vector<point> house;
+vector<int> street;
+void DFS(int idx, int m) {
+	if (m == M) {
+		int v = 0;
+		for (int j = 0; j < house.size(); j++) {
+			v += street[j];
+			if (min_value < v) {
+				return;
+			}
+		}
+		min_value = v;
+		return;
+	}
+
+	vector<int> cpy_street = street;
+	for (int i = idx; i < chicken.size(); i++) {
+		for (int j = 0; j < house.size(); j++) {
+			street[j] = min(abs(house[j].r - chicken[i].r) + abs(house[j].c - chicken[i].c), street[j]);
+		}
+		DFS(i + 1, m + 1);
+		street = cpy_street;
+	}
+}
+
+//BFS풀이
+void BFS_sol() {
+	board = vector<vector<int>>(N, vector<int>(N));
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> board[i][j];
+			if (board[i][j] == 2) {
+				chicken.push_back({ i, j });
+			}
+			else if (board[i][j] == 1) {
+				house_num++;
+			}
+		}
+	}
+
+	pre = vector<bool>(chicken.size(), false);
+	for (int i = 0; i < M; i++) {
+		pre[i] = true;
+	}
+
+	do {
+		BFS();
+	} while (prev_permutation(pre.begin(), pre.end()));
+}
+
+//DFS풀이
+void DFS_sol() {
+	int temp;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> temp;
+			if (temp == 2) {
+				chicken.push_back({ i, j });
+			}
+			else if (temp == 1) {
+				house.push_back({ i, j });
+			}
+		}
+	}
+
+	street = vector<int>(house.size(), 1000000);
+
+	DFS(0, 0);
+}
+
+int main() {
+	cin >> N >> M;
+	
+	//BFS_sol();
+	DFS_sol();
+	
+
+	cout << min_value;
+	return 0;
+}
