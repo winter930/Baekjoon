@@ -1,0 +1,151 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+int N;
+vector<vector<int>> board;
+
+void pb(){
+    cout << "-------- print board ------------\n";
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+           cout << board[i][j] << "\t";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+struct point{
+    int r;
+    int c;
+};
+
+int dr[4] = {0,1,0,-1};
+int dc[4] = {1,0,-1,0};
+
+bool in_range(int r, int c){
+    return 0<=r && r<N && 0<=c && c<N;
+}
+
+int paint_point(){
+    vector<vector<int>> group(N, vector<int>(N, 0));
+    vector<int> g_score(1,0);
+    vector<int> g_color(1,0);
+    map<pair<int,int>, int> m;
+
+    int g = 1;
+    int count;
+    queue<point> q;
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            if(group[i][j] == 0){
+                q.push({i,j});
+                group[i][j] = g;
+                count = 1;
+
+                int color = board[i][j];
+                g_color.push_back(color);
+                while(!q.empty()){
+                    int r = q.front().r;
+                    int c = q.front().c;
+                    q.pop();
+                    for(int i=0; i<4; i++){
+                        if(!in_range(r+dr[i], c+dc[i])){
+                            continue;
+                        }
+
+                        if(group[r+dr[i]][c+dc[i]] > 0){
+                            if(group[r+dr[i]][c+dc[i]] != g){
+                                if(m.find({g, group[r+dr[i]][c+dc[i]]}) == m.end()){
+                                    m[{g, group[r+dr[i]][c+dc[i]]}] = 1;
+                                }
+                                else{
+                                    m[{g, group[r+dr[i]][c+dc[i]]}]++;
+                                }
+                            }
+                            continue;
+                        }
+
+                        if(board[r+dr[i]][c+dc[i]] != color){
+                            continue;
+                        }
+
+                        q.push({r+dr[i], c+dc[i]});
+                        group[r+dr[i]][c+dc[i]] = g;
+                        count++;
+                    }
+                }
+
+                g++;
+                g_score.push_back(count);
+            }
+        }
+    }
+
+    int score = 0;
+    for(auto temp : m){
+        score += (g_score[temp.first.first] + g_score[temp.first.second]) * temp.second * g_color[temp.first.first] * g_color[temp.first.second];
+    }
+
+    return score;
+}
+
+
+
+void rotate_cross(){//십자각 반시계 회전
+    vector<vector<int>> temp = board;
+    for(int i=0; i<N; i++){
+        board[N/2][i] = temp[i][N/2];
+    }
+
+    for(int i=0; i<N; i++){
+        board[i][N/2] = temp[N/2][N - 1 - i];
+    }
+}
+
+void rotate_box(int r, int c){//나머지 시계방향 회전
+    vector<vector<int>> temp = board;
+    int er = N/2 + r;
+    int ec = N/2 + c;
+    for(int i=r; i<er; i++){
+        for(int j=c; j<ec; j++){
+            board[i][j] = temp[er - 1 - (j - c) ][ c + (i - r) ];
+        }
+    }
+}
+
+void rotate(){//회전
+    rotate_cross();
+    rotate_box(0,0);
+    rotate_box(N/2 + 1, 0);
+    rotate_box(0, N/2 + 1);
+    rotate_box(N/2 + 1, N/2 + 1);
+}
+
+void input(){
+    cin >> N;
+    board = vector<vector<int>>(N, vector<int>(N));
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            cin >> board[i][j];
+        }
+    }
+}
+
+int main() {
+    input();
+    int ans = paint_point();
+    for(int i=0; i<3; i++){
+        rotate();
+        ans += paint_point();
+    }
+    
+    cout << ans << endl;
+
+    return 0;
+}
